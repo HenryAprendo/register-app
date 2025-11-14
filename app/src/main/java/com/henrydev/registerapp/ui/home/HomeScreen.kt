@@ -13,15 +13,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.henrydev.registerapp.R
 import com.henrydev.registerapp.RegisterTopAppBar
 import com.henrydev.registerapp.ui.AppViewModelProvider
 import com.henrydev.registerapp.ui.navigation.NavigationDestination
 
 object HomeDestination: NavigationDestination {
     override val route = "home"
-    override val title = "Register"
+    override val titleRes = R.string.register
 }
 
 @Composable
@@ -32,7 +34,7 @@ fun HomeScreen(
 ) {
     Scaffold(
         topBar = {
-            RegisterTopAppBar(HomeDestination.title)
+            RegisterTopAppBar(stringResource(HomeDestination.titleRes))
         },
         floatingActionButton = {
             FloatingActionButton(onClick = navigateToItemEntry ) {

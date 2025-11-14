@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Register App</string>
+    <string name="quantity">quantity</string>
+    <string name="price">price</string>
+    <string name="name">name</string>
+    <string name="save_action">Save</string>
+    <string name="required_fields">*required fields</string>
+    <string name="add_item">Add item</string>
+    <string name="register">Register</string>
 </resources>

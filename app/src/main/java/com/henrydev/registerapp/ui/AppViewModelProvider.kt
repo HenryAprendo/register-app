@@ -6,6 +6,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.henrydev.registerapp.RegisterApplication
 import com.henrydev.registerapp.ui.home.HomeViewModel
+import com.henrydev.registerapp.ui.item.ItemEntryViewModel
 
 object AppViewModelProvider {
 
@@ -21,6 +22,10 @@ object AppViewModelProvider {
          */
         initializer {
             HomeViewModel(registerApplication().container.itemsRepository)
+        }
+
+        initializer {
+            ItemEntryViewModel(registerApplication().container.itemsRepository)
         }
     }
 
