@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -40,9 +41,13 @@ object ItemEntryDestination: NavigationDestination {
     override val titleRes = R.string.add_item
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ItemEntryScreen(
+    navigateBack: () -> Unit,
+    onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier,
+    canNavigateBack: Boolean = true,
     viewModel: ItemEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
 
@@ -50,14 +55,23 @@ fun ItemEntryScreen(
 
     Scaffold(
         topBar = {
-            RegisterTopAppBar(stringResource(ItemEntryDestination.titleRes))
+            RegisterTopAppBar(
+                title = stringResource(ItemEntryDestination.titleRes),
+                canNavigateBack = canNavigateBack,
+                navigateUp = onNavigateUp
+            )
         },
         modifier = modifier
     ) { innerPadding ->
         ItemEntryBody(
             itemUiState = viewModel.itemUiState,
             onItemValueChange = viewModel::updateUiState,
-            onSaveClick = { coroutineScope.launch { viewModel.insertItem() } },
+            onSaveClick = {
+                coroutineScope.launch {
+                    viewModel.insertItem()
+                    navigateBack()
+                }
+            },
             modifier = modifier
                 .padding(
                     start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),

@@ -10,6 +10,7 @@ import com.henrydev.registerapp.data.Item
 import com.henrydev.registerapp.data.ItemsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import java.text.NumberFormat
 
 class ItemEntryViewModel(
     private val itemsRepository: ItemsRepository
@@ -55,3 +56,11 @@ fun ItemDetails.toItem() = Item(
     price = price.toDoubleOrNull() ?: 0.0,
     quantity = quantity.toIntOrNull() ?: 0
 )
+
+fun Item.formatedPrice(): String {
+    return NumberFormat.getNumberInstance().format(price)
+}
+
+
+
+
