@@ -6,12 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -25,18 +22,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.henrydev.registerapp.R
 import com.henrydev.registerapp.RegisterTopAppBar
@@ -54,6 +48,7 @@ object HomeDestination: NavigationDestination {
 @Composable
 fun HomeScreen(
     navigateToItemEntry: () -> Unit,
+    onItemClick: (Item) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
@@ -81,6 +76,7 @@ fun HomeScreen(
 
         HomeBody(
             itemList = homeUiState.items,
+            onItemClick = onItemClick,
             modifier = modifier.fillMaxSize(),
             contentPadding = innerPadding
         )
@@ -91,6 +87,7 @@ fun HomeScreen(
 @Composable
 fun HomeBody(
     itemList: List<Item>,
+    onItemClick: (Item) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
@@ -108,6 +105,7 @@ fun HomeBody(
         } else {
             RegisterList(
                 itemList = itemList,
+                onItemClick = onItemClick,
                 contentPadding = contentPadding,
             )
         }
@@ -117,6 +115,7 @@ fun HomeBody(
 @Composable
 fun RegisterList(
     itemList: List<Item>,
+    onItemClick: (Item) -> Unit,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
@@ -125,11 +124,11 @@ fun RegisterList(
         modifier = modifier.padding(horizontal = 16.dp),
         contentPadding = contentPadding
     ) {
-        items(itemList, { it.id }) { itemDetail ->
+        items(itemList, { it.id }) { item ->
             RegisterItem(
-                item = itemDetail,
+                item = item,
                 modifier = Modifier.clickable {
-
+                    onItemClick(item)
                 }
             )
         }

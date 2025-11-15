@@ -61,6 +61,13 @@ fun Item.formatedPrice(): String {
     return NumberFormat.getNumberInstance().format(price)
 }
 
+fun Item.toItemDetails() = ItemDetails(
+    id = id,
+    name = name,
+    price = price.toString(),
+    quantity = quantity.toString()
+)
+
 
 
 

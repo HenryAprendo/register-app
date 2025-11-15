@@ -3,10 +3,14 @@ package com.henrydev.registerapp.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.henrydev.registerapp.ui.home.HomeDestination
 import com.henrydev.registerapp.ui.home.HomeScreen
+import com.henrydev.registerapp.ui.item.ItemDetailDestination
+import com.henrydev.registerapp.ui.item.ItemDetailScreen
 import com.henrydev.registerapp.ui.item.ItemEntryDestination
 import com.henrydev.registerapp.ui.item.ItemEntryScreen
 
@@ -29,7 +33,9 @@ fun RegisterNavHost(
                 navigateToItemEntry = {
                     navController.navigate(ItemEntryDestination.route)
                 },
-
+                onItemClick = { item ->
+                    navController.navigate("${ItemDetailDestination.route}/${item.id}")
+                }
             )
         }
 
@@ -42,10 +48,19 @@ fun RegisterNavHost(
             )
         }
 
+        composable(
+            route = ItemDetailDestination.routeWithArg,
+            arguments = listOf(navArgument(name = ItemDetailDestination.itemIdArg){
+                type = NavType.IntType
+            })
+        ) {
+            ItemDetailScreen(
+                onNavigateUp = { navController.navigateUp() }
+            )
+        }
+
     }
 
 }
-
-
 
 

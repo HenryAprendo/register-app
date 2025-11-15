@@ -1,11 +1,13 @@
 package com.henrydev.registerapp.ui
 
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.henrydev.registerapp.RegisterApplication
 import com.henrydev.registerapp.ui.home.HomeViewModel
+import com.henrydev.registerapp.ui.item.ItemDetailViewModel
 import com.henrydev.registerapp.ui.item.ItemEntryViewModel
 
 object AppViewModelProvider {
@@ -26,6 +28,13 @@ object AppViewModelProvider {
 
         initializer {
             ItemEntryViewModel(registerApplication().container.itemsRepository)
+        }
+
+        initializer {
+            ItemDetailViewModel(
+                savedStateHandle = this.createSavedStateHandle(),
+                itemsRepository = registerApplication().container.itemsRepository
+            )
         }
     }
 
