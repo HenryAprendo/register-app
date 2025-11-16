@@ -9,4 +9,5 @@
     <string name="register">Register</string>
     <string name="item_details">Details</string>
     <string name="in_stock">%d in stock</string>
+    <string name="quantity_in_stock">Quantity in stock</string>
 </resources>
