@@ -9,6 +9,8 @@ interface ItemsRepository {
      */
     suspend fun insertItem(item: Item)
 
+    suspend fun updateItem(item: Item)
+
     /**
      * Retrieve all the items for the given data source
      */

@@ -68,6 +68,10 @@ fun Item.toItemDetails() = ItemDetails(
     quantity = quantity.toString()
 )
 
+fun Item.toItemUiState(isEntryValid: Boolean = false): ItemUiState = ItemUiState(
+    itemDetails = this.toItemDetails(),
+    isEntryValid = isEntryValid
+)
 
 
 
