@@ -57,7 +57,7 @@ fun RegisterNavHost(
             })
         ) {
             ItemDetailScreen(
-                onNavigateUp = { navController.navigateUp() },
+                navigateBack = { navController.navigateUp() },
                 navigateToEditItem = { item ->
                     navController.navigate("${ItemEditDestination.route}/${item.id}")
                 }

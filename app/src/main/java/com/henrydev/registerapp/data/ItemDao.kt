@@ -1,6 +1,7 @@
 package com.henrydev.registerapp.data
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
@@ -10,10 +11,13 @@ import kotlinx.coroutines.flow.Flow
 interface ItemDao {
 
     @Insert
-    suspend fun insert(item: Item)
+    suspend fun insert(item:Item)
 
     @Update
-    suspend fun update(item: Item)
+    suspend fun update(item:Item)
+
+    @Delete
+    suspend fun delete(item:Item)
 
     @Query("SELECT * from items ORDER BY name ASC")
     fun getAllItems(): Flow<List<Item>>

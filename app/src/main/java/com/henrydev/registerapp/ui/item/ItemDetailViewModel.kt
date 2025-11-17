@@ -29,6 +29,10 @@ class ItemDetailViewModel(
                 initialValue = ItemDetailUiState()
             )
 
+    suspend fun deleteItem() {
+        itemsRepository.deleteItem(uiState.value.itemDetails.toItem())
+    }
+
 
 }
 
@@ -36,3 +40,12 @@ class ItemDetailViewModel(
 data class ItemDetailUiState(
     val itemDetails: ItemDetails = ItemDetails()
 )
+
+
+
+
+
+
+
+
+

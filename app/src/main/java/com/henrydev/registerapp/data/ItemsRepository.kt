@@ -7,9 +7,11 @@ interface ItemsRepository {
     /**
      * Insert item in the data source
      */
-    suspend fun insertItem(item: Item)
+    suspend fun insertItem(item:Item)
 
-    suspend fun updateItem(item: Item)
+    suspend fun updateItem(item:Item)
+
+    suspend fun deleteItem(item:Item)
 
     /**
      * Retrieve all the items for the given data source
