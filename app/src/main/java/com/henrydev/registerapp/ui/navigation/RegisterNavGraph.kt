@@ -15,6 +15,8 @@ import com.henrydev.registerapp.ui.item.ItemEditDestination
 import com.henrydev.registerapp.ui.item.ItemEditScreen
 import com.henrydev.registerapp.ui.item.ItemEntryDestination
 import com.henrydev.registerapp.ui.item.ItemEntryScreen
+import com.henrydev.registerapp.ui.movement.EntryMovementDestination
+import com.henrydev.registerapp.ui.movement.EntryMovementScreen
 
 @Composable
 fun RegisterNavHost(
@@ -57,9 +59,17 @@ fun RegisterNavHost(
             })
         ) {
             ItemDetailScreen(
-                navigateBack = { navController.navigateUp() },
+                navigateBack = { navController.popBackStack() },
                 navigateToEditItem = { item ->
                     navController.navigate("${ItemEditDestination.route}/${item.id}")
+                },
+                navigateToEntryMovement = {
+                    navController.navigate(
+                        route = "${EntryMovementDestination.route}/${it.id}"
+                    )
+                },
+                navigateToOutwardMovement = {
+                    navController.navigate(route = "outward_move")
                 }
             )
         }
@@ -74,6 +84,17 @@ fun RegisterNavHost(
                 navigateBack = { navController.popBackStack() },
                 onNavigateUp = { navController.navigateUp() }
             )
+        }
+
+        composable(
+            route = EntryMovementDestination.routeWithArg,
+            arguments = listOf(
+                navArgument(name = EntryMovementDestination.itemIdArg) {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            EntryMovementScreen()
         }
 
     }

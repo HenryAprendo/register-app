@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BasicAlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -58,6 +59,8 @@ object ItemDetailDestination: NavigationDestination {
 fun ItemDetailScreen(
     navigateBack: () -> Unit,
     navigateToEditItem: (Item) -> Unit,
+    navigateToEntryMovement: (Item) -> Unit,
+    navigateToOutwardMovement: (Item) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ItemDetailViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
@@ -87,13 +90,14 @@ fun ItemDetailScreen(
         val coroutineScope = rememberCoroutineScope()
 
         ItemDetailBody(
-            itemDetails = uiState.itemDetails,
+            item = uiState.itemDetails.toItem(),
             onDelete = {
                 coroutineScope.launch {
                     viewModel.deleteItem()
                     navigateBack()
-                }
-                       },
+                } },
+            navigateToEntryItem = navigateToEntryMovement,
+            navigateToOutwardItem = navigateToOutwardMovement,
             modifier = modifier.padding(
                 top = innerPadding.calculateTopPadding(),
                 start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
@@ -106,8 +110,10 @@ fun ItemDetailScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ItemDetailBody(
-    itemDetails: ItemDetails,
+    item: Item,
     onDelete: () -> Unit,
+    navigateToEntryItem: (Item) -> Unit,
+    navigateToOutwardItem: (Item) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -118,10 +124,27 @@ fun ItemDetailBody(
         modifier = modifier.padding(16.dp)
     ) {
         ItemDetail(
-            itemDetails.toItem()
+            item
         )
-        OutlinedButton(onClick = { deleteConfirmationRequired = true }) {
-            Text("Delete")
+        Row {
+            OutlinedButton(onClick = { deleteConfirmationRequired = true }) {
+                Text("Delete")
+            }
+
+            Button(
+                onClick = { navigateToEntryItem(item) },
+                shape = MaterialTheme.shapes.small
+            ) {
+                Text("Entry movement")
+            }
+
+            Button(
+                onClick = { navigateToOutwardItem(item) },
+                shape = MaterialTheme.shapes.small
+            ) {
+                Text("Outward movement")
+            }
+
         }
 
         if (deleteConfirmationRequired) {

@@ -10,6 +10,7 @@ import com.henrydev.registerapp.ui.home.HomeViewModel
 import com.henrydev.registerapp.ui.item.ItemDetailViewModel
 import com.henrydev.registerapp.ui.item.ItemEditViewModel
 import com.henrydev.registerapp.ui.item.ItemEntryViewModel
+import com.henrydev.registerapp.ui.movement.EntryMovementViewModel
 
 object AppViewModelProvider {
 
@@ -44,6 +45,14 @@ object AppViewModelProvider {
                 itemsRepository = registerApplication().container.itemsRepository
             )
         }
+
+        initializer {
+            EntryMovementViewModel(
+                savedStateHandle = this.createSavedStateHandle(),
+                itemsRepository = registerApplication().container.itemsRepository
+            )
+        }
+
     }
 
 }

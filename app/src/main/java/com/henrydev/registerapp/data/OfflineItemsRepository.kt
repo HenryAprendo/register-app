@@ -12,6 +12,6 @@ class OfflineItemsRepository(private val itemDao: ItemDao) : ItemsRepository {
 
     override fun getAllItemsStream(): Flow<List<Item>> = itemDao.getAllItems()
 
-    override fun getItemStream(id: Int): Flow<Item> = itemDao.getItem(id)
+    override fun getItemStream(id: Int): Flow<Item?> = itemDao.getItem(id)
 
 }

@@ -1,5 +1,6 @@
 package com.henrydev.registerapp.ui.item
 
+import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,7 +19,7 @@ class ItemDetailViewModel(
 
     private val itemId: Int = checkNotNull(savedStateHandle[ItemDetailDestination.itemIdArg])
 
-    val uiState: StateFlow<ItemDetailUiState> =
+    var uiState: StateFlow<ItemDetailUiState> =
         itemsRepository.getItemStream(itemId)
             .filterNotNull()
             .map { item ->
@@ -33,6 +34,15 @@ class ItemDetailViewModel(
         itemsRepository.deleteItem(uiState.value.itemDetails.toItem())
     }
 
+    suspend fun addItemsToTheRegister(quantity: Int) {
+        val item = uiState.value.itemDetails.toItem()
+        itemsRepository.updateItem(item.copy( quantity = item.quantity + quantity))
+    }
+
+    suspend fun removeItemsToTheRegister(quantity: Int) {
+        val item = uiState.value.itemDetails.toItem()
+        itemsRepository.updateItem(item.copy(quantity = item.quantity - quantity))
+    }
 
 }
 
