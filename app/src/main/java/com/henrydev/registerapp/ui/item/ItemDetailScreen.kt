@@ -60,7 +60,6 @@ fun ItemDetailScreen(
     navigateBack: () -> Unit,
     navigateToEditItem: (Item) -> Unit,
     navigateToEntryMovement: (Item) -> Unit,
-    navigateToOutwardMovement: (Item) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ItemDetailViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
@@ -97,7 +96,6 @@ fun ItemDetailScreen(
                     navigateBack()
                 } },
             navigateToEntryItem = navigateToEntryMovement,
-            navigateToOutwardItem = navigateToOutwardMovement,
             modifier = modifier.padding(
                 top = innerPadding.calculateTopPadding(),
                 start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
@@ -113,7 +111,6 @@ fun ItemDetailBody(
     item: Item,
     onDelete: () -> Unit,
     navigateToEntryItem: (Item) -> Unit,
-    navigateToOutwardItem: (Item) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -127,25 +124,21 @@ fun ItemDetailBody(
             item
         )
         Row {
-            OutlinedButton(onClick = { deleteConfirmationRequired = true }) {
+            OutlinedButton(
+                onClick = { deleteConfirmationRequired = true },
+                shape = MaterialTheme.shapes.small
+            ) {
                 Text("Delete")
             }
-
-            Button(
+            Spacer(Modifier.weight(1f))
+            OutlinedButton(
                 onClick = { navigateToEntryItem(item) },
                 shape = MaterialTheme.shapes.small
             ) {
                 Text("Entry movement")
             }
-
-            Button(
-                onClick = { navigateToOutwardItem(item) },
-                shape = MaterialTheme.shapes.small
-            ) {
-                Text("Outward movement")
-            }
-
         }
+
 
         if (deleteConfirmationRequired) {
             DeleteConfirmationDialog(

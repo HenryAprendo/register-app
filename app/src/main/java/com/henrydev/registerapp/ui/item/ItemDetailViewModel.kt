@@ -34,16 +34,6 @@ class ItemDetailViewModel(
         itemsRepository.deleteItem(uiState.value.itemDetails.toItem())
     }
 
-    suspend fun addItemsToTheRegister(quantity: Int) {
-        val item = uiState.value.itemDetails.toItem()
-        itemsRepository.updateItem(item.copy( quantity = item.quantity + quantity))
-    }
-
-    suspend fun removeItemsToTheRegister(quantity: Int) {
-        val item = uiState.value.itemDetails.toItem()
-        itemsRepository.updateItem(item.copy(quantity = item.quantity - quantity))
-    }
-
 }
 
 

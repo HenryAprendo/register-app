@@ -10,6 +10,7 @@
     <string name="item_details">Details</string>
     <string name="item_edit_title">Edit item</string>
     <string name="in_stock">%d in stock</string>
+    <string name="move_title">Name of item: %1$s</string>
     <string name="quantity_in_stock">Quantity in stock</string>
     <string name="entry_move">Entry movement</string>
     <string name="outward_move">Outward movement</string>

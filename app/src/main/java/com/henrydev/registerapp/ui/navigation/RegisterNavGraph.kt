@@ -59,7 +59,7 @@ fun RegisterNavHost(
             })
         ) {
             ItemDetailScreen(
-                navigateBack = { navController.popBackStack() },
+                navigateBack = { navController.navigateUp() },
                 navigateToEditItem = { item ->
                     navController.navigate("${ItemEditDestination.route}/${item.id}")
                 },
@@ -67,9 +67,6 @@ fun RegisterNavHost(
                     navController.navigate(
                         route = "${EntryMovementDestination.route}/${it.id}"
                     )
-                },
-                navigateToOutwardMovement = {
-                    navController.navigate(route = "outward_move")
                 }
             )
         }
@@ -94,7 +91,10 @@ fun RegisterNavHost(
                 }
             )
         ) {
-            EntryMovementScreen()
+            EntryMovementScreen(
+                navigateBack = { navController.popBackStack() },
+                navigateUp = { navController.navigateUp() }
+            )
         }
 
     }
